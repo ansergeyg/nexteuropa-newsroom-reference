@@ -460,7 +460,7 @@ class NexteuropaNewsroomAgenda {
     $output['visible_items'] = NULL;
     $grouped_output = NULL;
     if (!empty($grouped_items)) {
-      foreach ($grouped_items as $title => $items) {
+      foreach ($grouped_items as $type_id => $items) {
         $item_output = [];
         foreach ($items as $item) {
           $item_output[] = [
@@ -480,7 +480,7 @@ class NexteuropaNewsroomAgenda {
         }
         $grouped_output = theme('newsroom_agenda_content_items',
           [
-            'item_type' => $title,
+            'item_type' => NexteuropaNewsroomVocabularyHelper::getItemTypeInPlural($type_id),
             'items' => $item_output,
             'agenda_block' => $agenda_type,
           ]);
@@ -671,7 +671,7 @@ class NexteuropaNewsroomAgenda {
     foreach ($query_results as $item) {
       $temp_item = NULL;
       // Reduce the page loading time by breaking/continuing for each item type.
-      if (count($items_by_types[$item->name]) >= $total) {
+      if (count($items_by_types[$item->type_id]) >= $total) {
         continue;
       }
       switch ($blockName) {
@@ -712,10 +712,10 @@ class NexteuropaNewsroomAgenda {
       }
 
       if ($temp_item) {
-        $temp_item->visible = count($items_by_types[$temp_item->name]) < $show_items_total;
+        $temp_item->visible = count($items_by_types[$temp_item->type_id]) < $show_items_total;
         // No more than $total number of items per item type (for hiding).
-        if (count($items_by_types[$temp_item->name]) < $total) {
-          $items_by_types[$temp_item->name][] = $temp_item;
+        if (count($items_by_types[$temp_item->type_id]) < $total) {
+          $items_by_types[$temp_item->type_id][] = $temp_item;
         }
       }
     }
@@ -738,7 +738,7 @@ class NexteuropaNewsroomAgenda {
     foreach ($items as $item) {
       if ($type_id != $item->type_id) {
         $type_id = $item->type_id;
-        $types_array[$item->name] = [];
+        $types_array[$item->type_id] = [];
       }
     }
     return $types_array;
