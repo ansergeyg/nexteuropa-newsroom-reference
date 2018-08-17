@@ -311,7 +311,6 @@ class NexteuropaNewsroomVocabularyHelper {
    *
    * @param int $item_type_id
    *   Taxonomy term ID.
-   *
    * @param string $block
    *   Name of the block.
    *
@@ -324,26 +323,30 @@ class NexteuropaNewsroomVocabularyHelper {
     $id = $block . str_replace(' ', '_', $item_type_id);
 
     switch ($id) {
-      case NexteuropaNewsroomAgenda::AGENDA_TYPE_CURRENT . str_replace(' ', '_', self::getItemTypeInPluralInternal(250)) :
+      case NexteuropaNewsroomAgenda::AGENDA_TYPE_CURRENT . str_replace(' ', '_', self::getItemTypeInPluralInternal(250)):
         $textPlural = t('current');
         break;
-      case NexteuropaNewsroomAgenda::AGENDA_TYPE_CURRENT . str_replace(' ', '_', self::getItemTypeInPluralInternal(520)) :
-      case NexteuropaNewsroomAgenda::AGENDA_TYPE_CURRENT . str_replace(' ', '_', self::getItemTypeInPluralInternal(826)) :
-      case NexteuropaNewsroomAgenda::AGENDA_TYPE_CURRENT . str_replace(' ', '_', self::getItemTypeInPluralInternal(825)) :
+
+      case NexteuropaNewsroomAgenda::AGENDA_TYPE_CURRENT . str_replace(' ', '_', self::getItemTypeInPluralInternal(520)):
+      case NexteuropaNewsroomAgenda::AGENDA_TYPE_CURRENT . str_replace(' ', '_', self::getItemTypeInPluralInternal(826)):
+      case NexteuropaNewsroomAgenda::AGENDA_TYPE_CURRENT . str_replace(' ', '_', self::getItemTypeInPluralInternal(825)):
         $textPlural = t('open');
         break;
-      case NexteuropaNewsroomAgenda::AGENDA_TYPE_UPCOMING . str_replace(' ', '_', self::getItemTypeInPluralInternal(250)) :
-      case NexteuropaNewsroomAgenda::AGENDA_TYPE_UPCOMING . str_replace(' ', '_', self::getItemTypeInPluralInternal(520)) :
-      case NexteuropaNewsroomAgenda::AGENDA_TYPE_UPCOMING . str_replace(' ', '_', self::getItemTypeInPluralInternal(826)) :
-      case NexteuropaNewsroomAgenda::AGENDA_TYPE_UPCOMING . str_replace(' ', '_', self::getItemTypeInPluralInternal(825)) :
+
+      case NexteuropaNewsroomAgenda::AGENDA_TYPE_UPCOMING . str_replace(' ', '_', self::getItemTypeInPluralInternal(250)):
+      case NexteuropaNewsroomAgenda::AGENDA_TYPE_UPCOMING . str_replace(' ', '_', self::getItemTypeInPluralInternal(520)):
+      case NexteuropaNewsroomAgenda::AGENDA_TYPE_UPCOMING . str_replace(' ', '_', self::getItemTypeInPluralInternal(826)):
+      case NexteuropaNewsroomAgenda::AGENDA_TYPE_UPCOMING . str_replace(' ', '_', self::getItemTypeInPluralInternal(825)):
         $textPlural = t('upcoming');
         break;
-      case NexteuropaNewsroomAgenda::AGENDA_TYPE_PAST . str_replace(' ', '_', self::getItemTypeInPluralInternal(250)) :
-      case NexteuropaNewsroomAgenda::AGENDA_TYPE_PAST . str_replace(' ', '_', self::getItemTypeInPluralInternal(520)) :
-      case NexteuropaNewsroomAgenda::AGENDA_TYPE_PAST . str_replace(' ', '_', self::getItemTypeInPluralInternal(826)) :
-      case NexteuropaNewsroomAgenda::AGENDA_TYPE_PAST . str_replace(' ', '_', self::getItemTypeInPluralInternal(825)) :
+
+      case NexteuropaNewsroomAgenda::AGENDA_TYPE_PAST . str_replace(' ', '_', self::getItemTypeInPluralInternal(250)):
+      case NexteuropaNewsroomAgenda::AGENDA_TYPE_PAST . str_replace(' ', '_', self::getItemTypeInPluralInternal(520)):
+      case NexteuropaNewsroomAgenda::AGENDA_TYPE_PAST . str_replace(' ', '_', self::getItemTypeInPluralInternal(826)):
+      case NexteuropaNewsroomAgenda::AGENDA_TYPE_PAST . str_replace(' ', '_', self::getItemTypeInPluralInternal(825)):
         $textPlural = t('past');
         break;
+
     }
     return $textPlural;
   }

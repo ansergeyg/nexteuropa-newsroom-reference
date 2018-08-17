@@ -18,7 +18,10 @@
   <?php endforeach; ?>
   <?php if (count($items) > $items_number_to_show_more_button) : ?>
       <div id="display-more-link" onclick="return Drupal.behaviors.nexteuropa_newsroom.showHiddenAgendaItems('<?php echo drupal_strtolower(sprintf('newsroom-%s-%s', $agenda_block, str_replace(' ', '_', $item_type))); ?>', this)" class="newsroom-display-more btn btn-ctn">
-        <?php echo t('Show more !agenda_block !item_type', ['!agenda_block' => NexteuropaNewsroomVocabularyHelper::getBlockItemTypeInPlural($item_type, $agenda_block), '!item_type' => drupal_strtolower($item_type)]); ?>
+        <?php echo t('See more !agenda_block !item_type', [
+                '!agenda_block' => NexteuropaNewsroomVocabularyHelper::getBlockItemTypeInPlural($item_type, $agenda_block),
+                '!item_type' => drupal_strtolower($item_type),
+          ]); ?>
       </div>
   <?php endif; ?>
 <?php endif; ?>
