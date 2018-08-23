@@ -27,16 +27,16 @@ class NexteuropaNewsroomBuilder {
    * @return object
    *   Agenda item.
    */
-  public static function buildPageAgenda($type_name = NEXTEUROPA_NEWSROOM_ALL, $topic_name = NEXTEUROPA_NEWSROOM_ALL, $arg1 = NULL, $arg2 = NULL, $arg3 = NULL) {
+  public static function buildPageAgenda($type_name = NEXTEUROPA_NEWSROOM_ALL, $topic_name = NEXTEUROPA_NEWSROOM_ALL, $start_date = NULL, $end_date) {
 
     $current_date = new DateTime();
     $type = self::getType($type_name);
     $topic = self::getTopic($topic_name);
 
-    $day = self::getDay($arg1);
-    $month = self::getMonth($arg2);
-    $year = self::getYear($arg3);
-    $current_date->setDate($year, $month, $day);
+//    $day = self::getDay($arg1);
+//    $month = self::getMonth($arg2);
+//    $year = self::getYear($arg3);
+    $current_date->setDate($start_date, $month, $day);
 
     return new NexteuropaNewsroomAgenda($type, $topic, $current_date);
   }

@@ -122,6 +122,7 @@ function _nexteuropa_newsroom_agenda_search_block() {
     $type ? $type->tid : NULL,
     $topic ? $topic->tid : NULL,
     $current_date->format(NexteuropaNewsroomAgenda::DATE_FORMAT),
+    $current_date->format(NexteuropaNewsroomAgenda::DATE_FORMAT),
     NexteuropaNewsroomHelper::getResultTopicsId()
   );
 }

@@ -322,25 +322,35 @@ function _nexteuropa_newsroom_newsletter_subscription_block_form_ajax(array $for
  * @return array
  *   Rendable form array.
  */
-function nexteuropa_newsroom_agenda_filter_form(array $form, array &$form_state, $type_id, $topic_id, $current_date, array $result_topics) {
+function nexteuropa_newsroom_agenda_filter_form(array $form, array &$form_state, $type_id, $topic_id, $from_date, $to_date, array $result_topics) {
   $topic_options = NexteuropaNewsroomHelper::getNewsroomTopicOptions($result_topics);
   $form = [];
-  $form['type_id'] = [
+  $form['nr_type'] = [
     '#type' => 'select',
     '#title' => t('Type'),
     '#options' => NexteuropaNewsroomHelper::getNewsroomTypeOptions(TRUE),
     '#default_value' => $type_id,
   ];
-  $form['topic_id'] = [
+  $form['nr_topic'] = [
     '#type' => 'select',
     '#title' => t('Topic'),
     '#options' => $topic_options,
     '#default_value' => $topic_id,
   ];
-  $form['current_date'] = [
+  $form['nr_start_date'] = [
     '#type' => 'date_popup',
-    '#title' => t('Current date'),
-    '#default_value' => $current_date,
+    '#title' => t('From'),
+    '#default_value' => $from_date,
+    '#date_type' => DATE_DATETIME,
+    '#date_timezone' => date_default_timezone(),
+    '#date_format' => 'd-m-Y',
+    '#date_increment' => 1,
+    '#date_year_range' => '-2:+2',
+  ];
+  $form['nr_end_date'] = [
+    '#type' => 'date_popup',
+    '#title' => t('To'),
+    '#default_value' => $from_date,
     '#date_type' => DATE_DATETIME,
     '#date_timezone' => date_default_timezone(),
     '#date_format' => 'd-m-Y',
@@ -368,14 +378,31 @@ function nexteuropa_newsroom_agenda_filter_form(array $form, array &$form_state,
  */
 function _nexteuropa_newsroom_agenda_form_submit(array &$form, array &$form_state) {
 
-  $topic_id = !empty($form_state['values']['topic_id']) ? $form_state['values']['topic_id'] : NULL;
-  $type_id = !empty($form_state['values']['type_id']) ? $form_state['values']['type_id'] : NULL;
-  $date = !empty($form_state['values']['current_date']) ? $form_state['values']['current_date'] : NexteuropaNewsroomHelper::getFormatedDate();
-  $topic = NexteuropaNewsroomVocabularyHelper::getNewsroomTopic($topic_id);
-  $type = NexteuropaNewsroomVocabularyHelper::getNewsroomType($type_id);
-  $agenda = new NexteuropaNewsroomAgenda($type, $topic, new DateTime($date));
+  $fields = [
+    'nr_topic' => NULL,
+    'nr_type' => NULL,
+    'nr_start_date' => NULL,
+    'nr_end_date' => NULL,
+  ];
+  $fields['nr_topic'] = !empty($form_state['values']['nr_topic']) ? $form_state['values']['nr_topic'] : NULL;
+  $fields['nr_type'] = !empty($form_state['values']['nr_type']) ? $form_state['values']['nr_type'] : NULL;
+  $fields['nr_start_date'] = !empty($form_state['values']['nr_start_date']) ? $form_state['values']['nr_start_date'] : NexteuropaNewsroomHelper::getFormatedDate();
+  $fields['nr_end_date'] = !empty($form_state['values']['nr_end_date']) ? $form_state['values']['nr_end_date'] : NexteuropaNewsroomHelper::getFormatedDate();
+  //$topic_id = NexteuropaNewsroomVocabularyHelper::getNewsroomTopic($topic_id);
+  //$type_id = NexteuropaNewsroomVocabularyHelper::getNewsroomType($type_id);
 
-  drupal_goto($agenda->getNavigationUrl(NexteuropaNewsroomHelper::checkDateFormat($date)), [], 301);
+  var_dump($fields);
+  //exit();
+  $form_state['redirect'] = [
+    current_path(),
+    [
+      'query' =>
+        $fields,
+    ],
+  ];
+  //$agenda = new NexteuropaNewsroomAgenda($type, $topic, new DateTime($start_date), new DateTime($end_date));
+
+  //drupal_goto($agenda->getAgendaUrl(NexteuropaNewsroomHelper::checkDateFormat($date)), [], 301);
 }
 
 /**

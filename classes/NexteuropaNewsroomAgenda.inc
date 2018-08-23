@@ -44,8 +44,8 @@ class NexteuropaNewsroomAgenda {
    * @param object $current_day
    *   Current date.
    */
-  public function __construct($type, $topics, $current_day) {
-    $this->setCurrentDate($current_day);
+  public function __construct($type, $topics, $start_date, $end_date) {
+    $this->setCurrentDate($start_date);
     if ($type) {
       $this->setTypeId($type->tid);
       $this->setTypeUrl($type->name);
@@ -837,6 +837,24 @@ class NexteuropaNewsroomAgenda {
     $this->setUrlItems($date);
     return 'newsroom-agenda/' . implode('/', $this->getUrlParts());
   }
+
+  /**
+   * Returns agenda navigation URL.
+   *
+   * @param object $date
+   *   Datetime object.
+   *
+   * @return string
+   *   URL string.
+   */
+  public function getAgendaUrl($params) {
+    $this->urlParts = [];
+    $this->addUrlPart($this->getTypeUrl());
+    $this->addUrlPart($this->getTopicUrl());
+    $this->setUrlItems($date);
+    return 'newsroom-agenda/' . implode('/', $this->getUrlParts());
+  }
+
 
   /**
    * Gets IDs array from topics array.
